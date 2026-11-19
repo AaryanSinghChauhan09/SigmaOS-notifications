@@ -1,0 +1,10 @@
+[package]
+name = "sigmaos-notifications"
+version = "0.1.0"
+edition = "2021"
+description = "Unified notification daemon for SigmaOS"
+license = "MIT"
+
+[lib]
+name = "sigmaos_notifications"
+path = "src/lib.rs"
