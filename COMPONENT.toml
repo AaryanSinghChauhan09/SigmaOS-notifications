@@ -1,0 +1,18 @@
+[component]
+name = "SigmaOS-notifications"
+description = "Unified notification daemon with urgency levels and action support"
+repo = "https://github.com/AaryanSinghChauhan09/SigmaOS-notifications"
+engine = "notification_daemon"
+category = "System Services"
+language = "rust"
+visibility = "public"
+depends_on = []
+provides = ["notifications", "notification-daemon", "urgency-levels"]
+
+[contract]
+provides = ["notifications", "notification-daemon", "urgency-levels"]
+depends_on = []
+
+[maturity]
+status = "stable"
+version = "1.0.0"
