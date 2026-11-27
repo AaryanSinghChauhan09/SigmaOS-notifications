@@ -25,3 +25,11 @@ Wiki documentation is available in the SigmaOS Wiki Staging repository:
 - [Repository](https://github.com/AaryanSinghChauhan09/SigmaOS-notifications)
 - [SigmaOS project](https://github.com/AaryanSinghChauhan09/Sigma)
 - [SigmaOS ISO](https://github.com/AaryanSinghChauhan09/SigmaOS-ISO)
+
+## See Also
+
+Related SigmaOS **System Services** repositories:
+
+- [SigmaOS-pkg-core](../SigmaOS-pkg-core/README.md) — SigmaOS-pkg-core
+- [SigmaOS-skills](../SigmaOS-skills/README.md) — Skills component for SigmaOS
+- [SigmaOS-wiki-hub](../SigmaOS-wiki-hub/README.md) — SigmaOS-wiki-hub
