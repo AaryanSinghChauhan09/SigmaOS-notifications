@@ -227,6 +227,45 @@ mod tests {
     }
 
     #[test]
+    fn history_is_bounded() {
+        let mut d = NotificationDaemon::new();
+        for i in 0..(HISTORY_CAP + 10) {
+            let id = d.notify("a", format!("n{i}"), "", Priority::Normal);
+            d.dismiss(id);
+        }
+        assert_eq!(d.history().count(), HISTORY_CAP);
+        // Newest first: the last dismissed is at the front.
+        assert_eq!(
+            d.history().next().unwrap().summary,
+            format!("n{}", HISTORY_CAP + 9)
+        );
+    }
+
+    #[test]
+    fn ids_and_seq_are_monotonic() {
+        let mut d = NotificationDaemon::new();
+        let a = d.notify("a", "1", "", Priority::Normal);
+        let b = d.notify("b", "2", "", Priority::Normal);
+        assert!(b > a);
+        let seqs: Vec<u64> = d.active().iter().map(|n| n.seq).collect();
+        assert_eq!(seqs, vec![1, 2]);
+        assert_eq!(d.active().len(), 2);
+    }
+
+    #[test]
+    fn expire_boundary_is_exclusive() {
+        let mut d = NotificationDaemon::new();
+        d.notify("a", "s1", "", Priority::Normal); // seq 1
+        d.notify("a", "s2", "", Priority::Normal); // seq 2
+        d.expire_older_than(2); // seq < 2 expires
+        assert_eq!(d.active().len(), 1);
+        assert_eq!(d.active()[0].summary, "s2");
+        // Nothing left to expire at seq 2.
+        d.expire_older_than(2);
+        assert_eq!(d.history().count(), 1);
+    }
+
+    #[test]
     fn observer_sees_changes() {
         use std::cell::RefCell;
         use std::rc::Rc;
